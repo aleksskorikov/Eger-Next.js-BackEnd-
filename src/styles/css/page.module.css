@@ -1,0 +1,264 @@
+.navButton {
+  width: 200px;
+  height: 40px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  font-size: 1rem;
+  font-weight: 600;
+  background: #BDB76B;
+  box-shadow: 0 5px 0 gray;
+  transition-duration: 1s;
+  transition: background-color 0.5s ease 0s;
+  position: relative;
+  top: 0;
+}
+.navButton:hover {
+  background: #ece277;
+}
+.navButton:active {
+  top: 3px;
+  box-shadow: 0 2px 0 rgb(11, 18, 11);
+}
+
+.main {
+  background-color: #EEE8AA;
+}
+
+.container {
+  max-width: 1310px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.marquee {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  background: inherit;
+  font-size: 2rem;
+  color: rgb(27, 2, 2);
+  font-weight: bolder;
+  text-shadow: 3px 3px 15px #2b2b29;
+  padding: 10px 0;
+  margin-top: 1rem;
+  margin-bottom: -1rem;
+}
+
+.marqueeContent {
+  display: inline-block;
+  white-space: nowrap;
+  animation: marquee 30s linear infinite;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+.nav {
+  margin-top: 3rem;
+}
+
+.navMenu {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 25px;
+}
+
+.section {
+  text-align: center;
+}
+.section .sectionTitle {
+  margin: 3% 0;
+  text-shadow: 3px 3px 30px #2b2b29;
+  font-family: "Roboto", sans-serif;
+  font-weight: bold;
+  letter-spacing: 1rem;
+  text-transform: uppercase;
+}
+@media (max-width: 767px) {
+  .section .sectionTitle {
+    font-size: calc(16px + 54.4 * (100vw - 320px) / 1920);
+  }
+}
+@media (min-width: 767px) {
+  .section .sectionTitle {
+    font-size: calc(16px + 32 * 100vw / 1920);
+  }
+}
+.section .sectionInfo {
+  display: flex;
+  align-items: center;
+  background: #dcd79d;
+  border: 2px solid #b5b05e;
+  border-radius: 10px;
+  font-family: "Pacifico", cursive;
+  box-shadow: 10px 10px 25px 1px #b4b071;
+}
+.section .sectionFoto {
+  flex: 0 0 60%;
+  height: 26rem;
+  background-image: url(../../../public//images/hanter-foto/hunting.jpg);
+  background-position: center;
+  background-size: cover;
+  border: 2px solid #b5b05e;
+  border-radius: 10px;
+}
+.section .sectionText {
+  text-align: center;
+  flex: 1 1 auto;
+  padding: 2%;
+}
+@media (max-width: 767px) {
+  .section .sectionText {
+    font-size: calc(16px + 13.6 * (100vw - 320px) / 1920);
+  }
+}
+@media (min-width: 767px) {
+  .section .sectionText {
+    font-size: calc(16px + 8 * 100vw / 1920);
+  }
+}
+.section .fishing {
+  background-image: url(../../../public//images/fishing-foto/fishing.svg);
+}
+.section .selfDefense {
+  background-image: url(../../../public//images/weapon-foto/self-defense.webp);
+}
+.section .tourism {
+  background-image: url(../../../public//images/tourizm-foto/turizm.svg);
+}
+
+.slider {
+  position: relative;
+  padding: 0 3.75rem;
+  margin-top: 1rem;
+}
+.slider .slick-dots {
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+.slider .slick-dots li {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #ccc;
+  transition: all 0.3s ease-in-out;
+}
+.slider .slick-dots li.slick-active {
+  background: black;
+  transform: scale(1.4);
+}
+.slider .slick-dots button {
+  font-size: 0;
+  width: 100%;
+  height: 100%;
+}
+.slider .slick-dots li button::before {
+  font-size: 0;
+}
+.slider .slickArrow {
+  font-size: 0;
+  position: absolute;
+  width: 2.5rem;
+  height: 4.4rem;
+  top: 40%;
+  z-index: 10;
+}
+.slider .slickPrev,
+.slider .slickNext::before {
+  content: url(../../../public/images/arrow.svg);
+}
+.slider .slickPrev {
+  left: 0;
+  transform: rotateY(180deg);
+}
+.slider .slickNext {
+  right: 0;
+  top: 45%;
+}
+
+.menu {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  perspective: 62.5rem;
+  margin: 2rem 2rem 2rem 2.5rem;
+  cursor: pointer;
+}
+.menu .front,
+.menu .back {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  transition: 1s;
+  backface-visibility: hidden;
+  border-radius: 1rem;
+  box-shadow: 10px 10px 25px #a8a46b;
+}
+.menu .front {
+  position: absolute;
+  background: #bdb36b;
+  border: 2px solid #bdb55b;
+}
+.menu .front img {
+  width: 21rem;
+  height: 24rem;
+  border-radius: 10px;
+}
+.menu .front .frontTitle {
+  font-size: 2rem;
+  padding: 1rem;
+  text-transform: lowercase;
+}
+.menu:hover .front {
+  transform: rotateY(180deg);
+}
+.menu .back {
+  position: relative;
+  justify-content: center;
+  width: 21rem;
+  height: 28.2rem;
+  background: rgba(189, 183, 107, 0.8941176471);
+  color: black;
+  border: 4px solid #bdb55b;
+  box-shadow: inset 50px 50px 50px 50px rgba(200, 190, 89, 0.7215686275);
+  transform: rotateY(180deg);
+}
+.menu .back .backTitle {
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: rgb(23, 23, 23);
+  text-transform: uppercase;
+  margin: 1rem;
+}
+.menu .back .backTitle:hover {
+  color: rgb(77, 76, 76);
+}
+.menu .back ul {
+  padding-left: 2rem;
+}
+.menu .back li {
+  text-align: start;
+  list-style: disc;
+  margin: 0.7rem;
+}
+.menu .back li .backList {
+  color: black;
+  font-size: 1.2rem;
+  padding-top: 1rem;
+  text-transform: uppercase;
+}
+.menu .back li .backList:hover {
+  color: rgb(157, 110, 110);
+}
+.menu:hover .back {
+  transform: rotateY(360deg);
+}/*# sourceMappingURL=page.module.css.map */

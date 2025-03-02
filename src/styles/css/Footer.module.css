@@ -1,0 +1,142 @@
+.blockSety {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  max-width: 1310px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.footer {
+  background: #BDB76B;
+  margin-top: 5rem;
+}
+
+.footerBlock {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 0;
+}
+
+.footerBlockSety {
+  margin: 1rem 0;
+}
+
+.blockSetyTitle {
+  text-align: center;
+  margin: 1rem auto;
+}
+@media (max-width: 767px) {
+  .blockSetyTitle {
+    font-size: calc(32px + 27.2 * (100vw - 320px) / 1920);
+  }
+}
+@media (min-width: 767px) {
+  .blockSetyTitle {
+    font-size: calc(32px + 16 * 100vw / 1920);
+  }
+}
+
+.blockSety {
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+
+.blockSetyIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: 5px;
+}
+
+.footerBody {
+  text-align: center;
+  margin: 1rem auto;
+}
+
+@media (max-width: 767px) {
+  .footerBodyTitle {
+    font-size: calc(32px + 54.4 * (100vw - 320px) / 1920);
+  }
+}
+@media (min-width: 767px) {
+  .footerBodyTitle {
+    font-size: calc(32px + 32 * 100vw / 1920);
+  }
+}
+
+@media (max-width: 767px) {
+  .footerBodySubtitle {
+    font-size: calc(16px + 54.4 * (100vw - 320px) / 1920);
+  }
+}
+@media (min-width: 767px) {
+  .footerBodySubtitle {
+    font-size: calc(16px + 32 * 100vw / 1920);
+  }
+}
+
+@media (max-width: 767px) {
+  .footerBodyAdress {
+    font-size: calc(16px + 27.2 * (100vw - 320px) / 1920);
+  }
+}
+@media (min-width: 767px) {
+  .footerBodyAdress {
+    font-size: calc(16px + 16 * 100vw / 1920);
+  }
+}
+.footerBodyAdress Link {
+  color: black;
+}
+
+.bodyAdress {
+  padding-bottom: 1rem;
+}
+
+.footerBodyTel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.telLogo {
+  width: 35px;
+  height: 35px;
+  border-radius: 20px;
+  margin: 0 5px 0 10px;
+}
+
+.footerMap {
+  border: 2px solid black;
+  border-radius: 5px;
+}
+
+@media (max-width: 854px) {
+  .footerBlockSety {
+    text-align: center;
+  }
+  .blockSetyTitle {
+    margin: 0 auto;
+  }
+}
+@media (max-width: 821px) {
+  .footerBlock {
+    flex-direction: column;
+  }
+  .footerBlockSety {
+    order: 2;
+    margin-top: 1rem;
+  }
+  .footerMap {
+    order: 3;
+  }
+  .footerBlockSety {
+    margin-top: 1rem;
+  }
+  .footerMapBody {
+    width: 100%;
+  }
+}/*# sourceMappingURL=Footer.module.css.map */
