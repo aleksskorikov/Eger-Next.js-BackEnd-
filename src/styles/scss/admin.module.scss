@@ -3,21 +3,25 @@
 @use "./templates.module.scss" as *;
 
 .container {
+    display: flex;
+    gap: 3rem;
     max-width: 1310px;
     margin: 0 auto;
     padding: 0 15px;
 }
 .sections {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     gap: 1rem;
+    width: 30%;
     margin-top: 2rem;
 }
 
 .title {
     @extend %flex-center;
     text-align: center;
-    font-size: 3.5rem;
+    font-size: 2rem;
     font-weight: bolder;
     height: 8rem;
     background-color: $back-bg;
@@ -35,7 +39,7 @@
 
 .listSubtitle {
     text-align: center;
-    font-size: 2rem;
+    font-size: 1.2rem;
     background-color: $list-subtitle-bg;
     padding: 1rem 0;
 }
@@ -47,7 +51,7 @@
 .listTitle {
     background-color: $list-title-bg;
     text-align: center;
-    font-size: 3rem;
+    font-size: 1.5rem;
     text-transform: lowercase;
 }
 
@@ -55,7 +59,7 @@
     list-style: disc;
     padding: 0.5rem;
     margin-left: 2rem;
-    font-size: 1.5rem;
+    font-size: 1rem;
     cursor: pointer;
     color: $lists-list-color;
 
@@ -68,6 +72,12 @@
 
 .adminBlock {
     display: flex;
+    justify-content: center;
     flex-wrap: wrap;
+    width: 70%;
     margin-top: 2rem;
+}
+
+.message{
+    font-size: 2rem;
 }

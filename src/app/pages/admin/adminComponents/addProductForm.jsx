@@ -66,8 +66,6 @@ const AddProductForm = ({ onSave, onCancel }) => {
             }
         });
 
-        console.log("📤 FormData перед отправкой:", [...formData.entries()]);
-
         if (typeof onSave === "function") {
             onSave(formData);
         } else {
@@ -76,8 +74,8 @@ const AddProductForm = ({ onSave, onCancel }) => {
     };
 
     return (
-        <div className="add-product-form">
-            <p className="product__form-subtitle">Основне фото</p>
+        <div className={styles.form}>
+            <p className={styles.formSubtitle}>Основне фото</p>
             <EditableImageField
                 currentImage={newProduct.images.imgSrc}
                 onSave={(file) => handleImageChange("imgSrc", file)}
@@ -85,7 +83,7 @@ const AddProductForm = ({ onSave, onCancel }) => {
 
             {Array.from({ length: 9 }).map((_, index) => (
                 <div key={index}>
-                    <p className="product__form-subtitle">Додаткове фото {index + 1}</p>
+                    <p className={styles.formSubtitle}>Додаткове фото {index + 1}</p>
                     <EditableImageField
                         currentImage={newProduct.images[`img${index + 2}`]}
                         onSave={(file) => handleImageChange(`img${index + 2}`, file)}
@@ -93,25 +91,25 @@ const AddProductForm = ({ onSave, onCancel }) => {
                 </div>
             ))}
 
-            <p className="product__form-subtitle">Назва товару</p>
+            <p className={styles.formSubtitle}>Назва товару</p>
             <EditableField value={newProduct.name} onSave={(value) => handleFieldChange("name", value)} />
 
-            <p className="product__form-subtitle">Опис товару (не обов'язково)</p>
+            <p className={styles.formSubtitle}>Опис товару (не обов'язково)</p>
             <EditableField value={newProduct.description} onSave={(value) => handleFieldChange("description", value)} />
 
             {Array.from({ length: 20 }).map((_, index) => (
                 <div key={index}>
-                    <p className="product__form-subtitle">Опис товару у вигляді списку пункт {index + 1} (не обов'язково)</p>
+                    <p className={styles.formSubtitle}>Опис товару у вигляді списку пункт {index + 1} (не обов'язково)</p>
                     <EditableField value={listMemo[index]} onSave={(value) => handleListChange(index, value)} />
                 </div>
             ))}
 
-            <p className="product__form-subtitle">Ціна товару</p>
+            <p className={styles.formSubtitle}>Ціна товару</p>
             <EditableField value={newProduct.price} onSave={(value) => handleFieldChange("price", value)} />
 
-            <div className="add__product-btns-block">
-                <button onClick={handleSaveClick} className="add__product-btn-ok">Зберегти</button>
-                <button onClick={onCancel} className="add__product-cancellation">Скасувати</button>
+            <div className={styles.btnsBlock}>
+                <button onClick={handleSaveClick} className={styles.btnOk}>Зберегти</button>
+                <button onClick={onCancel} className={styles.cancellation}>Скасувати</button>
             </div>
         </div>
     );

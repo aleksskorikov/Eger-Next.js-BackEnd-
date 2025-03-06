@@ -1,0 +1,23 @@
+// components/Menu.js
+import React from 'react';
+import Image from 'next/image';
+import styles from '@/styles/scss/_productPages.module.scss';
+
+const Menu = ({ menuItems, activeMenu, onMenuItemClick }) => {
+    return (
+        <div className={styles.menuOne}>
+            {menuItems.map(({ img, id, name }) => (
+                <div key={id} className={styles.menuItems} onClick={() => onMenuItemClick(id)}>
+                    <Image 
+                        src={img} 
+                        alt={name} 
+                        className={`${styles.menuImg} ${activeMenu === id ? styles.active : ''}`} 
+                    />
+                    <p className={styles.menuName}>{name}</p>
+                </div>
+            ))}
+        </div>
+    );
+};
+
+export default Menu;

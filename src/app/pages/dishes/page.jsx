@@ -1,59 +1,67 @@
+'use client';
+
 import React, { useState } from 'react';
-import MenuImg from "../assets/images/menu img/dishes.jpg";
-import MenuImg1 from "../assets/images/menu img/dishes1.jpg";
-import MenuImg2 from "../assets/images/menu img/dishes2.jpg";
-import MenuImg3 from "../assets/images/menu img/dishes3.jpg";
-import ProductSlider from '../../app/pages/components/productSlider';
-import ProductCard from "../../app/pages/components/productCard";
-import "../styles/scss/_productPages.scss";
-import OllAll from '../../app/pages/components/oll-all';
-import Mail from '../../app/pages/components/mail';
-import ToMainBtn from '../../app/pages/components/toMainBtn';
+import Image from 'next/image';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
+import ProductSlider from '@/components/ProductSlider';
+import ToMainBtn from '@/components/btns/ToMainBtn';
+import OllAll from '@/components/OllAll';
+import ProductCard from '@/components/ProductCard';
+import Menu from '@/components/Menu'; 
+import styles from '@/styles/scss/_productPages.module.scss';
+
+import MenuImg from "../../../../public/images/menu img/dishes.jpg";
+import MenuImg1 from "../../../../public/images/menu img/dishes1.jpg";
+import MenuImg2 from "../../../../public/images/menu img/dishes2.jpg";
+import MenuImg3 from "../../../../public/images/menu img/dishes3.jpg";
+import Slide1 from '../../../../public/images/pages-img/patron1.jpg';
+import Slide2 from '../../../../public/images/pages-img/patron2.jpg';
+import Slide3 from '../../../../public/images/pages-img/patron3.jpg';
+import Slide4 from '../../../../public/images/pages-img/patron4.jpg';
+import Slide5 from '../../../../public/images/pages-img/guns1.jpg';
+import Slide6 from '../../../../public/images/pages-img/guns2.jpg';
+import Slide7 from '../../../../public/images/pages-img/guns1.jpg';
+import Slide8 from '../../../../public/images/pages-img/guns4.jpg';
 
 const Dishes = () => {
     const [activeMenuOne, setActiveMenuOne] = useState('all');
     const pageName = 'dishes';
+    const images = [Slide1, Slide2, Slide3, Slide4, Slide5, Slide6, Slide7, Slide8];
+    
+        const handleFetchedProducts = (data) => {
+            // Логика обработки данных продуктов
+        };
 
-return (
-<>
-    <ProductSlider />
-    <ToMainBtn />
-    <div className="menu">
-        <h1 className="menu__title">Кухня та посуд</h1>
-        <div className="menu__one" id="menu-one">
-            <div className="menu__items">
-                <img src={MenuImg} alt="Menu" className={`menu__img ${activeMenuOne==='all' ? 'activ' : '' }`}
-                    data-id="all" onClick={()=> setActiveMenuOne('all')}
-                />
-                <p className="menu__name">Кухня та посуд</p>
+    const menuItemsOne = [
+        { img: MenuImg, id: 'all', name: 'Кухня та посуд' },
+        { img: MenuImg1, id: 'product-category1', name: 'Пальники' },
+        { img: MenuImg2, id: 'product-category2', name: 'Термопродукція' },
+        { img: MenuImg3, id: 'product-category3', name: 'Туристичний посуд' }
+    ];
+
+    return (
+        <div className={styles.main}>
+            <Header />
+            <div className={styles.container}>
+                <ProductSlider images={images}/>
+                <ToMainBtn />
+                <div className={styles.menu}>
+                    <h1 className={styles.menuTitle}>Кухня та посуд</h1>
+                    <Menu
+                        menuItems={menuItemsOne}
+                        activeMenu={activeMenuOne}
+                        onMenuItemClick={setActiveMenuOne}
+                    />
+                    <ProductCard pageName={pageName} activeCategory={activeMenuOne} productCategory="productsOne" onProductsFetched={handleFetchedProducts}/>
+                </div>
+                <OllAll />
             </div>
-            <div className="menu__items">
-                <img src={MenuImg1} alt="Menu" className={`menu__img ${activeMenuOne==='product-category1' ? 'activ' : ''
-                    }`} data-id="product-category1" onClick={()=> setActiveMenuOne('product-category1')}
-                />
-                <p className="menu__name">Пальники</p>
-            </div>
-            <div className="menu__items">
-                <img src={MenuImg2} alt="Menu" className={`menu__img ${activeMenuOne==='product-category2' ? 'activ' : ''
-                    }`} data-id="product-category2" onClick={()=> setActiveMenuOne('product-category2')}
-                />
-                <p className="menu__name">Термопродукція</p>
-            </div>
-            <div className="menu__items">
-                <img src={MenuImg3} alt="Menu" className={`menu__img ${activeMenuOne==='product-category3' ? 'activ' : ''
-                    }`} data-id="product-category3" onClick={()=> setActiveMenuOne('product-category3')}
-                />
-                <p className="menu__name">Туристичний посуд</p>
-            </div>
+            <Footer />
         </div>
-
-        <ProductCard pageName={pageName} activeCategory={activeMenuOne} productCategory="productsOne" />
-
-    </div>
-    <OllAll />
-    <Mail />
-</>
-);
+    );
 };
 
 export default Dishes;
+
+

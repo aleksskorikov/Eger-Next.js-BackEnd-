@@ -2,9 +2,23 @@
 @use './mixins.module.scss' as *;
 @use "./templates.module.scss" as *;
 
+
+.productsContainer{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.title{
+    font-size: 2rem;
+    text-align: center;
+}
+
 .productsGrid {
     display: flex;
+    justify-content: center;
     flex-wrap: wrap;
+    gap: 1rem;
     margin-top: 2rem;
 }
 
@@ -17,7 +31,7 @@
 }
 
 .productCard {
-    // max-width: 80%;
+    width: 90%;
     border: 4px solid $grey;
     padding: 2rem;
 }
@@ -82,21 +96,24 @@
     }
 }
 
-.btns-block {
+.blockBtn {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
     margin-top: 0.5rem;
 }
 
-.change-btn {
+.changeBtn {
     display: block;
     width: 8rem;
+    height: 2rem;
     background-color: $yellowgreen;
     border-radius: 5px;
     padding: 5px;
     font-size: 1rem;
     font-weight: bold;
-    margin: 2rem auto;
+    margin: 2rem 0;
 
     &:hover {
         background-color: $form-btn-bg-hover;
@@ -104,8 +121,9 @@
     }
 }
 
-.delete-button {
+.deleteButton {
     width: 8rem;
+    height: 2rem;
     background-color: $editable-btn-cancellation;
     border-radius: 5px;
     padding: 5px;

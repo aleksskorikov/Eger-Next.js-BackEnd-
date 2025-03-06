@@ -37,24 +37,40 @@ const Fishing = () => {
     };
 
     const categories = [
-        { image: Rods, title: 'Вудки', link: '/pages/rods', items: ['Спінінги', 'Фідери', 'Поплавочні', 'Телескопічні'] },
+        { image: Rods, title: 'Вудки', link: '/pages/fishing-rods', items: ['Спінінги', 'Фідери', 'Поплавочні', 'Телескопічні'] },
         { image: Coils, title: 'Котушки', link: '/pages/coils', items: ['Безінерційні', 'Мультиплікаторні', 'Інерційні'] },
         { image: Tackle, title: 'Оснастка', link: '/pages/tackle', items: ['Гачки', 'Повідки', 'Поплавки', 'Грузила'] },
-        { image: Bait, title: 'Прикормки', link: '/pages/bait', items: ['Пеллетс', 'Бойли', 'Фідерна прикормка'] },
+        { image: Bait, title: 'Прикормки', link: '/pages/lure', items: ['Блешні', 'Балансири', 'Воблери', 'Силікон', 'Діпи', 'Прикормки' ] },
         { image: Equipment, title: 'Аксесуари', link: '/pages/equipment', items: ['Підсаки', 'Садки', 'Коробки'] },
-        { image: Cloth, title: 'Одяг', link: '/pages/cloth', items: ['Куртки', 'Костюми', 'Футболки', 'Штани'] },
+        {
+            image: Cloth,
+            title: 'Одяг',
+            link: '/pages/cloth',
+            categories: [
+                {
+                    subtitle: "Верхній одяг",
+                    items: ["Куртки", "Костюми", "Футболки та джемпера", "Штани та комбінезони"],
+                },
+                {
+                    subtitle: "Взуття",
+                    items: ["Черевики" , "Чоботи", "Гумові чоботи" , "Заброди та комбінезони"],
+                }
+            ],
+        },
         { image: Lanterns, title: 'Ліхтарі', link: '/pages/lanterns', items: ['Налобні', 'Ручні', 'Кемпінгові'] },
-        { image: Underwear, title: 'Термобілизна', link: '/pages/underwear', items: ['Комплекти', 'Футболки', 'Штани'] }
+        { image: Underwear, title: 'Термобілизна', link: '/pages/thermal-underwear', items: ['Комплекти', 'Футболки', 'Штани'] }
     ];
 
     return (
-        <section className={styles.section} id="section-fishing">
-            <h3 className={styles.sectionTitle}>Риболовля</h3>
+        <section className={styles.section} id="section-hunting">
+            <h3 className={styles.sectionTitle}>Полювання</h3>
             <div className={styles.sectionInfo}>
                 <div className={`${styles.sectionFoto} ${styles.fishing}`}></div>
                 <div className={styles.sectionText}>
-                    Риболовля - це не просто хобі, це стиль життя. Вона приносить спокій, радість та азарт. 
-                    Для кожного рибалки важливо мати якісне спорядження, щоб отримати максимальне задоволення.
+                    Давайте запитаємо себе: - навіщо ми полюємо? І відповімо чесно, 
+                    не кривлячи душею, бо обдурити себе неможливо. 
+                    Кожен відповість по-різному. Але всіх справжніх мисливців 
+                    об'єднує одне – мисливська пристрасть.
                 </div>
             </div>
             <Slider {...settings} className={styles.slider}>
@@ -66,19 +82,30 @@ const Fishing = () => {
                         </div>
                         <div className={styles.back}>
                             <p>
-                                <Link href={item.link} className={styles.backTitle}>
-                                    {item.title}
-                                </Link>
+                                <Link href={item.link} className={styles.backTitle}>{item.title}</Link>
                             </p>
-                            <ul>
-                                {item.items.map((subItem, idx) => (
-                                    <li key={idx}>
-                                        <Link href={item.link} className={styles.backList}>
-                                            {subItem}
-                                        </Link>
-                                    </li>
-                                ))}
-                            </ul>
+                            {item.categories ? (
+                                item.categories.map((subCategory, idx) => (
+                                    <div key={idx}>
+                                        <p className={styles.subtitle}>{subCategory.subtitle}</p>
+                                        <ul>
+                                            {subCategory.items.map((subItem, subIdx) => (
+                                                <li key={subIdx}>
+                                                    <Link href={item.link} className={styles.backList}>{subItem}</Link>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                ))
+                            ) : (
+                                <ul>
+                                    {item.items.map((subItem, idx) => (
+                                        <li key={idx}>
+                                            <Link href={item.link} className={styles.backList}>{subItem}</Link>
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
                         </div>
                     </div>
                 ))}

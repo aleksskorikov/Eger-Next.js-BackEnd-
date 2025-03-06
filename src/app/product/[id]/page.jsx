@@ -52,19 +52,6 @@ const Product = () => {
     const images = Object.keys(product)
         .filter(key => key.startsWith("img"))
         .map(key => product[key]);
-    
-
-    
-    // const images = Object.keys(product)
-//     .filter(key => key.startsWith("img") && product[key]) // Исключаем пустые значения
-    //     .map(key => product[key]);
-    
-//     const images = Object.keys(product)
-//     .filter(key => key.startsWith("img") && product[key]) // Исключаем пустые значения
-//     .map(key => product[key]);
-
-// // Если нет изображений, добавляем заглушку
-// const validImages = images.length > 0 ? images : [];
 
     return (
         <div className={styles.productWrapper}>

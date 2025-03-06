@@ -56,7 +56,7 @@ const Mail = ({ onClose }) => {
 
     if (isValidName && isValidEmail && isValidMessage) {
       alert("Форма успішно відправлена!");
-      if (onClose) onClose(); // 👈 Закрываем форму после отправки
+      if (onClose) onClose(); 
     }
   };
 

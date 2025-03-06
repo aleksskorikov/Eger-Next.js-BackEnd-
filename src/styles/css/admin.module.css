@@ -5,6 +5,8 @@
 }
 
 .container {
+  display: flex;
+  gap: 3rem;
   max-width: 1310px;
   margin: 0 auto;
   padding: 0 15px;
@@ -12,14 +14,16 @@
 
 .sections {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   gap: 1rem;
+  width: 30%;
   margin-top: 2rem;
 }
 
 .title {
   text-align: center;
-  font-size: 3.5rem;
+  font-size: 2rem;
   font-weight: bolder;
   height: 8rem;
   background-color: rgba(189, 183, 107, 0.8941176471);
@@ -37,7 +41,7 @@
 
 .listSubtitle {
   text-align: center;
-  font-size: 2rem;
+  font-size: 1.2rem;
   background-color: rgba(225, 218, 129, 0.8941176471);
   padding: 1rem 0;
 }
@@ -49,7 +53,7 @@
 .listTitle {
   background-color: rgba(216, 210, 123, 0.8941176471);
   text-align: center;
-  font-size: 3rem;
+  font-size: 1.5rem;
   text-transform: lowercase;
 }
 
@@ -57,7 +61,7 @@
   list-style: disc;
   padding: 0.5rem;
   margin-left: 2rem;
-  font-size: 1.5rem;
+  font-size: 1rem;
   cursor: pointer;
   color: blueviolet;
 }
@@ -68,6 +72,12 @@
 
 .adminBlock {
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
+  width: 70%;
   margin-top: 2rem;
+}
+
+.message {
+  font-size: 2rem;
 }/*# sourceMappingURL=admin.module.css.map */

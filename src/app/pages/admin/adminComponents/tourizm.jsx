@@ -1,108 +1,81 @@
-// "use client";
-
-// import React, { useState, useEffect } from "react";
-// import styles from "../../../../styles/scss/admin.module.scss";
-// import FilteredProducts from "./filteredProducts";
-// import useFetchProducts from "@/app/Hooks/useFetchProducts";
-// import CategoryListItem from "./CategoryListItem";
-// import tourizmCategories from "./tourizmCategories";
-
-// const TourizmCategories = () => {
-//     const [selectedCategory, setSelectedCategory] = useState(null);
-//     const [filteredProducts, setFilteredProducts] = useState([]);
-//     const { products } = useFetchProducts();
-
-//     useEffect(() => {
-//         if (selectedCategory && products.length > 0) {
-//             const filtered = products.filter((product) => product.category === selectedCategory.category);
-//             setFilteredProducts(filtered);
-//         }
-//     }, [selectedCategory, products]);
-
-//     const handleCategoryClick = (category, pageName, productCategory) => {
-//         setSelectedCategory({ category, pageName, productCategory });
-//     };
-
-//     return (
-//         <div className={styles.fishing}>
-//         <p className={styles.title}>туризм</p>
-//         <ol className={styles.lists}>
-//             {tourizmCategories.map((category) => (
-//             <li key={category.pageName} className={styles.list}>
-//                 <div className={styles.listTitle}>{category.title}</div>
-//                 <ul>
-//                 {category.items.map((item) => (
-//                     <li
-//                     key={item.category}
-//                     className={styles.listsList}
-//                     onClick={() =>
-//                         handleCategoryClick(item.category, category.pageName, "productsOne")
-//                     }
-//                     >
-//                     {item.name}
-//                     </li>
-//                 ))}
-//                 </ul>
-//             </li>
-//             ))}
-//         </ol>
-//         </div>
-//     );
-// };
-
-// export default TourizmCategories;
-
-
 "use client";
 
 import React, { useState, useEffect } from "react";
 import styles from "../../../../styles/scss/admin.module.scss";
-import FilteredProducts from "./filteredProducts";
 import useFetchProducts from "@/app/Hooks/useFetchProducts";
 import CategoryListItem from "./CategoryListItem";
 import categories from "./tourizmCategories";
 
-const Tourizm = () => {
+const Tourizm = ({ onCategoryClick }) => {
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [filteredProducts, setFilteredProducts] = useState([]);
     const { products } = useFetchProducts();
+    const [openCategory, setOpenCategory] = useState(null);
+    const [isTitleOpen, setIsTitleOpen] = useState(true);
 
     useEffect(() => {
         if (selectedCategory && products.length > 0) {
-            const filtered = products.filter((product) => product.category === selectedCategory.category);
+            const filtered = products.filter(
+                (product) => 
+                    product.category === selectedCategory.category &&
+                    product.pageName === selectedCategory.pageName &&
+                    product.productCategory === selectedCategory.productCategory
+            );
             setFilteredProducts(filtered);
+        } else {
+            setFilteredProducts([]);
         }
     }, [selectedCategory, products]);
 
-    const handleCategoryClick = (category, pageName, productCategory) => {
-        setSelectedCategory({ category, pageName, productCategory });
+    const toggleCategory = (category) => {
+        setOpenCategory(openCategory === category ? null : category);
+    };
+
+    const toggleTitle = () => {
+        setIsTitleOpen(!isTitleOpen);
     };
 
     return (
         <>
             <div className={styles.hanter}>
-                <p className={styles.title}>туризм</p>
-                <ol className={styles.lists}>
-                    {categories.map((categoryItem, index) => (
-                        <li key={index} className={styles.list}>
-                            <div className={styles.listTitle}>{categoryItem.title}</div>
-                            {categoryItem.subcategories.map((subcategory, subIndex) => (
-                                <ul key={subIndex}>
-                                    {subcategory.subtitle && <p className={styles.listSubtitle}>{subcategory.subtitle}</p>}
-                                    {subcategory.items.map((item, itemIndex) => (
-                                        <CategoryListItem
-                                            key={itemIndex}
-                                            {...item}
-                                            onClick={handleCategoryClick}
-                                        />
-                                    ))}
-                                </ul>
-                            ))}
-                        </li>
-                    ))}
-                </ol>
+                <p className={styles.title} onClick={toggleTitle}>
+                    {isTitleOpen ? "Туризм" : "Открыть туризм"}
+                </p>
+                {isTitleOpen && (
+                    <ol className={styles.lists}>
+                        {categories.map((categoryItem, index) => (
+                            <li key={index} className={styles.list}>
+                                <div 
+                                    className={styles.listTitle} 
+                                    onClick={() => toggleCategory(categoryItem.title)}
+                                >
+                                    {categoryItem.title}
+                                </div>
+                                {openCategory === categoryItem.title && (
+                                    <ul className={styles.subcategoryList}>
+                                        {categoryItem.subcategories.map((subcategory, subIndex) => (
+                                            <React.Fragment key={subIndex}>
+                                                {subcategory.subtitle && (
+                                                    <p className={styles.listSubtitle}>{subcategory.subtitle}</p>
+                                                )}
+                                                {subcategory.items.map((item, itemIndex) => (
+                                                    <CategoryListItem
+                                                        key={itemIndex}
+                                                        {...item}
+                                                        onClick={(category, pageName, productCategory) => {
+                                                            onCategoryClick(category, pageName, productCategory);
+                                                        }}
+                                                    />
+                                                ))}
+                                            </React.Fragment>
+                                        ))}
+                                    </ul>
+                                )}
+                            </li>
+                        ))}
+                    </ol>
+                )}
             </div>
-            <FilteredProducts />
         </>
     );
 };

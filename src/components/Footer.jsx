@@ -5,7 +5,7 @@ import Telefon from "../../public/logo/telefon.svg";
 import Insta from "../../public/logo/insta 1.svg";
 import Viber from "../../public/logo/Viber.svg";
 import Telegramm from "../../public/logo/telegram.svg";
-import Mail from "../../public/logo/mail 1.svg";
+import MailBtn from "./mainContent/MailBtn";
 
 const Footer = () => {
 return (
@@ -25,9 +25,7 @@ return (
             <Link href="https://t.me/egerzp" passHref>
             <Image src={Telegramm} alt="Telegram icon" className={styles.blockSetyIcon} />
             </Link>
-            <Link href="#" passHref>
-            <Image src={Mail} alt="Mail icon" className={`${styles.blockSetyIcon} ${styles.btn}`} />
-            </Link>
+            <MailBtn/>
         </div>
         </div>
 

@@ -6,9 +6,12 @@ import styles from '../../styles/scss/toMainBtn.module.scss';
 
 const ToMainBtn = () => {
     return (
-        <div className={styles.btnBlock}>
+        <>
+        <button className={styles.btnBlock}>
             <Link href="/" className={styles.toHome}>На головну</Link>
-        </div>
+        </button>
+        </>
+
     );
 };
 

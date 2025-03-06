@@ -37,11 +37,40 @@ const Hunting = () => {
     };
 
     const categories = [
-        { image: Guns, title: 'Ружья', link: '/pages/guns', items: ['Напівавтомотичні', 'Штуцери', 'З поздовжньо-ковзним затвором', 'Дрібноколіберні'] },
+        {
+            image: Guns,
+            title: 'Ружья',
+            link: '/pages/guns',
+            categories: [
+                {
+                    subtitle: "Нарезные",
+                    items: ['Напівавтомотичні', 'Штуцери', 'З поздовжньо-ковзним затвором', 'Дрібноколіберні'],
+                },
+                {
+                    subtitle: "Гладкоствольные",
+                    items: ["Переломні", "Напівавтоматичні", "Помпові", "З продольно-ковзним затвором"],
+                }
+            ],
+        },
         { image: Cartridges, title: 'Патрони', link: '/pages/cartridges', items: ['Дробові патрони', 'Картеч', 'Кульові патрони', 'Нарізні', 'Гладкоствольні'] },
         { image: Accessories, title: 'Аксесуари', link: '/pages/accessories', items: ['Кейси', 'Чохли', 'Підсумки', 'Кобури'] },
         { image: Knives, title: 'Ножі', link: '/pages/knives', items: ['Фіксовані', 'Складні', 'Тренувальна зброя'] },
-        { image: Cloth, title: 'Одяг', link: '/pages/cloth', items: ['Куртки', 'Костюми', 'Футболки', 'Штани'] },
+        {
+            image: Cloth,
+            title: 'Одяг',
+            link: '/pages/cloth',
+            categories: [
+                {
+                    subtitle: "Верхній одяг",
+                    items: ["Куртки", "Костюми", "Футболки та джемпера", "Штани та комбінезони"],
+                },
+                {
+                    subtitle: "Взуття",
+                    items: ["Черевики" , "Чоботи", "Гумові чоботи" , "Заброди та комбінезони"],
+                }
+            ],
+        },
+
         { image: Care, title: 'Догляд за зброєю', link: '/pages/care', items: ['Шомполи', 'Набори', 'Протяжки', 'Насадки'] },
         { image: Stuffed, title: 'Мисливські аксесуари', link: '/pages/hunting-accessories', items: ['Вабці', 'Опудала', 'Горни'] },
         { image: Target, title: 'Стрілецькі аксесуари', link: '/pages/shooting-accessories', items: ['Мішені', 'Тарілки', 'Інше'] }
@@ -70,13 +99,28 @@ const Hunting = () => {
                             <p>
                                 <Link href={item.link} className={styles.backTitle}>{item.title}</Link>
                             </p>
-                            <ul>
-                                {item.items.map((subItem, idx) => (
-                                    <li key={idx}>
-                                        <Link href={item.link} className={styles.backList}>{subItem}</Link>
-                                    </li>
-                                ))}
-                            </ul>
+                            {item.categories ? (
+                                item.categories.map((subCategory, idx) => (
+                                    <div key={idx}>
+                                        <p className={styles.subtitle}>{subCategory.subtitle}</p>
+                                        <ul>
+                                            {subCategory.items.map((subItem, subIdx) => (
+                                                <li key={subIdx}>
+                                                    <Link href={item.link} className={styles.backList}>{subItem}</Link>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                ))
+                            ) : (
+                                <ul>
+                                    {item.items.map((subItem, idx) => (
+                                        <li key={idx}>
+                                            <Link href={item.link} className={styles.backList}>{subItem}</Link>
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
                         </div>
                     </div>
                 ))}
@@ -98,4 +142,3 @@ const NextArrow = ({ className, style, onClick }) => (
 );
 
 export default Hunting;
-

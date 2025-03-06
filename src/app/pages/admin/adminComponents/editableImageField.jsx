@@ -33,11 +33,11 @@ const EditableImageField = ({ currentImage, onSave, onCancel }) => {
     };
 
     return (
-        <div className="editable-image-field">
+        <div className={styles.imageField}>
             <input
                 type="file"
                 onChange={handleFileChange}
-                className='editables-input'
+                className={styles.editableInput}
                 ref={fileInputRef}
                 accept="image/*"
             />
@@ -45,7 +45,7 @@ const EditableImageField = ({ currentImage, onSave, onCancel }) => {
                 <Image src={selectedImage} alt="Selected" width={150} height={150} />
             )}
             {selectedFile && (
-                <button onClick={handleCancel} className='editable__btn-cancellation'>
+                <button onClick={handleCancel} className={styles.btnCancellation}>
                     Скасувати
                 </button>
             )}

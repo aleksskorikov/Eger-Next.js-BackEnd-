@@ -272,7 +272,7 @@
         box-shadow: inset 50px 50px 50px 50px $back-shadow;
         transform: rotateY(180deg);
 
-        .backTitle {
+        .backTitle, .subtitle {
             font-size: 1.6rem;
             font-weight: bold;
             color: $back-title-color;
@@ -282,6 +282,9 @@
             &:hover {
                 color: $back-title-color-hover;
             }
+        }
+        .subtitle{
+            font-size: 1.2rem;
         }
 
         ul {
@@ -304,6 +307,7 @@
                 }
             }
         }
+
     }
 
     &:hover .back {

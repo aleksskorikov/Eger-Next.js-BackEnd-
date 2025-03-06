@@ -1,6 +1,7 @@
 import React from 'react';
+import styles from "../../../../styles/scss/filteredProducts.module.scss";
 
-const DeleteBtn = ({ productId, onDeleteSuccess, style }) => {
+const DeleteBtn = ({ productId, onDeleteSuccess }) => {
 
 const handleDelete = async () => {
     if (window.confirm('Вы уверены, что хотите удалить этот товар?')) {
@@ -21,7 +22,7 @@ const handleDelete = async () => {
     }
 };
     return (
-        <button onClick={handleDelete} className={`${style} delete-button`}>Удалить товар</button>
+        <button onClick={handleDelete} className={styles.deleteButton}>Удалить товар</button>
     );
 };
 

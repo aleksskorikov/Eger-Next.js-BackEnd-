@@ -14,7 +14,6 @@ const useFetchProducts = () => {
                 }
                 const data = await response.json();
                 setProducts(data);
-                console.log(data);
             } catch (error) {
                 console.error('Ошибка при получении товаров:', error);
                 setError(error);

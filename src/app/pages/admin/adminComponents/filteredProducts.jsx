@@ -35,12 +35,12 @@ const FilteredProducts = ({ products }) => {
                 product.id === updatedProduct.id ? updatedProduct : product
             )
         );
-        setEditingProduct(null); // Закрываем форму после сохранения
+        setEditingProduct(null); 
     };
 
     return (
         <div className={styles.productsContainer}>
-            <h2>Отфильтрованные товары</h2>
+            <h2 className={styles.title}>Отфильтрованные товары</h2>
             <div className={styles.productsGrid}>
                 {productList.map((product, index) => {
                     if (!product || !product.name || !product.price) {
@@ -84,8 +84,11 @@ const FilteredProducts = ({ products }) => {
                             </ol>
 
                             <p className={styles.productPrice}>Цена: {product.price} грн</p>
-                            <button onClick={() => handleEditClick(product)} className={styles.changeBtn}>Изменить товар</button>
-                            <DeleteBtn productId={product.id} onDeleteSuccess={handleDelete} />
+                            <div className={styles.blockBtn}>
+                                <button onClick={() => handleEditClick(product)} className={styles.changeBtn}>Изменить товар</button>
+                                <DeleteBtn productId={product.id} onDeleteSuccess={handleDelete}  /> 
+                            </div>
+                            
                         </div>
                     );
                 })}

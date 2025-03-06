@@ -20,19 +20,22 @@ const Admin = () => {
     const [filteredProducts, setFilteredProducts] = useState([]);
 
     useEffect(() => {
+    if (selectedCategory.category && products.length > 0) {
+        const filtered = products.filter(
+            (product) =>
+                product.category === selectedCategory.category &&
+                product.page_name === selectedCategory.page_name &&
+                product.product_category === selectedCategory.product_category
+        );
 
-        if (selectedCategory.category && products.length > 0) {
-            const filtered = products.filter(
-                (product) => product.category === selectedCategory.category
-            );
-            setFilteredProducts(filtered);
-        } else {
-            setFilteredProducts([]);
-        }
-    }, [selectedCategory, products]);
+        setFilteredProducts(filtered);
+    } else {
+        setFilteredProducts([]);
+    }
+}, [selectedCategory, products]);
+
 
     const handleCategoryClick = (category, page_name, product_category) => {
-
         setSelectedCategory({
             category,
             page_name,
@@ -40,8 +43,9 @@ const Admin = () => {
         });
     };
 
+    
+
 const handleAddProduct = async (formData) => {
-    // Проверяем, есть ли выбранная категория
     if (!selectedCategory || !selectedCategory.category) {
         console.error("❌ Ошибка: Категория не выбрана!", selectedCategory);
         return;
@@ -50,8 +54,6 @@ const handleAddProduct = async (formData) => {
     formData.append("category", selectedCategory.category || "default");
     formData.append("page_name", selectedCategory.page_name || "default_page");
     formData.append("product_category", selectedCategory.product_category || "default_category");
-
-    console.log("📤 FormData перед отправкой:", [...formData.entries()]);
 
     try {
         const response = await fetch('/api/products', {
@@ -65,13 +67,10 @@ const handleAddProduct = async (formData) => {
         }
 
         const data = await response.json();
-        console.log("📩 Ответ от сервера:", data);
 
         if (!response.ok) {
             throw new Error(data.message || "Ошибка при добавлении продукта");
         }
-
-        console.log("🎉 Продукт успешно добавлен!", data);
 
     } catch (error) {
         console.error("🚨 Ошибка при добавлении продукта:", error.message);
@@ -97,7 +96,7 @@ const handleAddProduct = async (formData) => {
                         </>
                     ) : (
                         <div>
-                            <p>Выберите категорию</p>
+                            <p className={styles.message}>Выберите категорию</p>
                         </div>
                     )}
                 </div>

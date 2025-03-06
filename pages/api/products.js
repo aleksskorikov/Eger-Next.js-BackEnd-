@@ -17,11 +17,11 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage });
-const uploadMiddleware = promisify(upload.any()); // Оборачиваем в промис
+const uploadMiddleware = promisify(upload.any()); 
 
 export const config = {
     api: {
-        bodyParser: false, // Отключаем bodyParser для работы с FormData
+        bodyParser: false, 
     },
 };
 
@@ -30,7 +30,7 @@ export default async function handler(req, res) {
 
     if (req.method === 'POST') {
         try {
-            await uploadMiddleware(req, res); // Загружаем файлы через promisify
+            await uploadMiddleware(req, res); 
             console.log("📩 Данные от клиента:", req.body);
             console.log("📷 Загруженные файлы:", req.files);
 
@@ -81,12 +81,11 @@ export default async function handler(req, res) {
         }
     } 
         
-      else if (req.method === 'PUT') {
+    else if (req.method === 'PUT') {
     try {
         console.log('📡 PUT запрос получен');
-        await uploadMiddleware(req, res);  // Загружаем файлы через promisify
+        await uploadMiddleware(req, res);  
 
-        // Теперь используем req.body для текстовых данных и req.files для файлов
         const { id, name, price, description, category, page_name, product_category, ...listData } = req.body;
         console.log('📩 Данные:', { id, name, price, description });
 
@@ -101,10 +100,9 @@ export default async function handler(req, res) {
 
         const images = {};
         req.files.forEach((file, index) => {
-            images[`img${index + 1}`] = `/uploads/${file.filename}`;  // Изменение имени файла на соответствующее поле
+            images[`img${index + 1}`] = `/uploads/${file.filename}`; 
         });
 
-        // Обновляем товар в базе данных
         const updatedProduct = await Product.update(
             {
                 name,
@@ -113,14 +111,14 @@ export default async function handler(req, res) {
                 category: category || product.category,
                 page_name: page_name || product.page_name,
                 product_category: product_category || product.product_category,
-                ...images,  // Добавляем загруженные изображения
+                ...images,  
             },
             { where: { id } }
         );
 
-        return res.status(200).json(updatedProduct);  // Возвращаем обновленный товар
+        return res.status(200).json(updatedProduct); 
     } catch (error) {
-        console.error("🚨 Ошибка при обновлении товара:", error);  // Логирование ошибки
+        console.error("🚨 Ошибка при обновлении товара:", error);  
         return res.status(500).json({ message: 'Ошибка при обновлении товара', error: error.message });
     }
 }

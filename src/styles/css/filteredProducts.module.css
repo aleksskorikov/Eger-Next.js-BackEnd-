@@ -1,6 +1,19 @@
+.productsContainer {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.title {
+  font-size: 2rem;
+  text-align: center;
+}
+
 .productsGrid {
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
+  gap: 1rem;
   margin-top: 2rem;
 }
 
@@ -13,6 +26,7 @@
 }
 
 .productCard {
+  width: 90%;
   border: 4px solid grey;
   padding: 2rem;
 }
@@ -76,36 +90,40 @@
   color: whitesmoke;
 }
 
-.btns-block {
+.blockBtn {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
   margin-top: 0.5rem;
 }
 
-.change-btn {
+.changeBtn {
   display: block;
   width: 8rem;
+  height: 2rem;
   background-color: yellowgreen;
   border-radius: 5px;
   padding: 5px;
   font-size: 1rem;
   font-weight: bold;
-  margin: 2rem auto;
+  margin: 2rem 0;
 }
-.change-btn:hover {
+.changeBtn:hover {
   background-color: rgb(29, 175, 29);
   color: whitesmoke;
 }
 
-.delete-button {
+.deleteButton {
   width: 8rem;
+  height: 2rem;
   background-color: rgb(247, 109, 109);
   border-radius: 5px;
   padding: 5px;
   font-size: 1rem;
   font-weight: bold;
 }
-.delete-button:hover {
+.deleteButton:hover {
   background-color: rgb(185, 57, 57);
   color: whitesmoke;
 }

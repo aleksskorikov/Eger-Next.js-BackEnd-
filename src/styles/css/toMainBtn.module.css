@@ -1,13 +1,12 @@
-.btnBlock {
+.toHome {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .btnBlock {
+  display: block;
   margin: 2rem auto;
-  width: 350px;
-  height: 40px;
   border-radius: 20px;
   text-transform: uppercase;
   font-size: 1.5rem;
@@ -28,5 +27,7 @@
 }
 
 .toHome {
+  width: 350px;
+  height: 40px;
   color: white;
 }/*# sourceMappingURL=toMainBtn.module.css.map */

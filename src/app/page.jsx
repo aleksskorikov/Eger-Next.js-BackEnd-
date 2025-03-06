@@ -8,8 +8,6 @@ import Fishing from "@/components/mainContent/fishing";
 import Weapon from "@/components/mainContent/weapon";
 import Tourizm from "@/components/mainContent/tourizm";
 import OllAll from "@/components/OllAll";
-// import Mail from "@/components/Mail";
-
 
 export default function Home() {
   return (
@@ -28,7 +26,6 @@ export default function Home() {
       </main>
       <Footer />
       <OllAll />
-      {/* <Mail/> */}
     </div>
   );
 }

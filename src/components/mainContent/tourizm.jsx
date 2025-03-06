@@ -45,7 +45,7 @@ const Tourism = () => {
         <section className={styles.section} id="section-tourism">
             <h3 className={styles.sectionTitle}>Туризм</h3>
             <div className={styles.sectionInfo}>
-                <div className={styles.sectionFoto}></div>
+                <div className={`${styles.sectionFoto} ${styles.tourism }`}></div>
                 <div className={styles.sectionText}>
                     Туризм дає можливість познайомитися з культурою інших країн та регіонів, задовольняє допитливість людини, збагачує її духовно, оздоровлює фізично, сприяє розвитку особистості. Він дозволяє поєднувати відпочинок із пізнанням нового.
                 </div>
