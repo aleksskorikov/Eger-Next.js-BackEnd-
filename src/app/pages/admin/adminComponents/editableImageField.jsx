@@ -42,7 +42,7 @@ const EditableImageField = ({ currentImage, onSave, onCancel }) => {
                 accept="image/*"
             />
             {selectedImage && (
-                <Image src={selectedImage} alt="Selected" width={150} height={150} />
+                <Image src={selectedImage} alt="Selected" width={200} height={200} />
             )}
             {selectedFile && (
                 <button onClick={handleCancel} className={styles.btnCancellation}>

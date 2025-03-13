@@ -51,7 +51,7 @@
     }
 }
 
-.field {
+.field, .formField {
     @extend %flex-center;
     width: 100%;
     padding: 1rem;
@@ -60,7 +60,7 @@
 }
 
 .editableInput {
-    width: 70%;
+    width: 80%;
     border-radius: 5px;
     margin-left: 10px;
     padding-left: 5px;
@@ -78,7 +78,7 @@
     gap: 1rem;
 
     img {
-        width: 250px;
+        width: 200px;
     }
 }
 
@@ -95,4 +95,61 @@
         background-color: $editable-btn-cancellation-hover;
         color: $whitesmoke;
     }
+}
+// =====EditProductForm=====
+
+.formTitle{
+    font-size: 2.5rem;
+    text-align: center;
+    margin: 1rem;
+    margin-bottom: 10px;
+}
+
+.subTitle{
+    margin-bottom: 1rem;
+}
+
+.formImages{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.imageUpload{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1.2rem;
+    font-weight: bolder;
+    border: 5px solid gray;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.imagePreview{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin:1rem 0;
+}
+
+.clearBtn{
+    width: 50%;
+    height: 1.5rem;
+    margin-top: 0.5rem;
+    font-size: 1rem;
+    color: whitesmoke;
+    background-color: red;
+    border-radius: 10px;
+    &:hover{
+        background-color: $add-product-cancellation;
+        color: rgb(61, 59, 59);
+    }
+}
+
+.formField{
+    justify-content: space-between;
+    font-size: 1.2rem;
+    font-weight: bolder;
 }

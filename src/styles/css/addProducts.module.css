@@ -1,4 +1,4 @@
-.field {
+.field, .formField {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -50,7 +50,7 @@
   color: whitesmoke;
 }
 
-.field {
+.field, .formField {
   width: 100%;
   padding: 1rem;
   border: 2px solid grey;
@@ -58,7 +58,7 @@
 }
 
 .editableInput {
-  width: 70%;
+  width: 80%;
   border-radius: 5px;
   margin-left: 10px;
   padding-left: 5px;
@@ -76,7 +76,7 @@
   gap: 1rem;
 }
 .imageField img {
-  width: 250px;
+  width: 200px;
 }
 
 .btnCancellation {
@@ -91,4 +91,60 @@
 .btnCancellation:hover {
   background-color: rgb(185, 57, 57);
   color: whitesmoke;
+}
+
+.formTitle {
+  font-size: 2.5rem;
+  text-align: center;
+  margin: 1rem;
+  margin-bottom: 10px;
+}
+
+.subTitle {
+  margin-bottom: 1rem;
+}
+
+.formImages {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.imageUpload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1.2rem;
+  font-weight: bolder;
+  border: 5px solid gray;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.imagePreview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1rem 0;
+}
+
+.clearBtn {
+  width: 50%;
+  height: 1.5rem;
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  color: whitesmoke;
+  background-color: red;
+  border-radius: 10px;
+}
+.clearBtn:hover {
+  background-color: rgb(234, 108, 108);
+  color: rgb(61, 59, 59);
+}
+
+.formField {
+  justify-content: space-between;
+  font-size: 1.2rem;
+  font-weight: bolder;
 }/*# sourceMappingURL=addProducts.module.css.map */

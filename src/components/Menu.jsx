@@ -11,7 +11,10 @@ const Menu = ({ menuItems, activeMenu, onMenuItemClick }) => {
                     <Image 
                         src={img} 
                         alt={name} 
+                        width={160}
+                        height={160}
                         className={`${styles.menuImg} ${activeMenu === id ? styles.active : ''}`} 
+                        priority
                     />
                     <p className={styles.menuName}>{name}</p>
                 </div>

@@ -31,11 +31,11 @@ const ProductCard = ({ activeCategory, pageName, productCategory }) => {
                                 src={`http://localhost:5001/${product.imgSrc}`}
                                 alt={product.name}
                                 width={300}
-                                height={300}
+                                height={400}
                                 className={styles.cardImg}
+                                priority
                             />
                         </div>
-
                         <p className={styles.productName}>{product.name}</p>
                         <p className={styles.productPrice}>Ціна: {product.price} грн</p>
                     </Link>

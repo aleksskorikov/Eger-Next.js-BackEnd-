@@ -75,10 +75,19 @@ const handleAddProduct = async (formData) => {
     } catch (error) {
         console.error("🚨 Ошибка при добавлении продукта:", error.message);
     }
-};
+    };
+    
+        const handleProductUpdate = (updatedProduct) => {
+        setFilteredProducts((prevProducts) =>
+            prevProducts.map((product) =>
+                product.id === updatedProduct.id ? updatedProduct : product
+            )
+        );
+    };
 
     return (
-        <div className={styles.container}>
+        <div className={styles.main}>
+            <div className={styles.container}>
             <section className={styles.sections}>
                 <Hanter onCategoryClick={handleCategoryClick} />
                 <Fishing onCategoryClick={handleCategoryClick} />
@@ -87,11 +96,11 @@ const handleAddProduct = async (formData) => {
             </section>
 
             <section className={styles.adminBlock}>
-                <div className="products">
+                <div>
                     {selectedCategory.category ? (
                         <>
                             {error && <p className={styles.error}>{error}</p>}
-                            <FilteredProducts products={filteredProducts} selectedCategory={selectedCategory} />
+                            <FilteredProducts products={filteredProducts} selectedCategory={selectedCategory} onProductUpdate={handleProductUpdate}/>
                             <AddProductBtn onAddProduct={handleAddProduct} selectedCategory={selectedCategory} />
                         </>
                     ) : (
@@ -102,7 +111,12 @@ const handleAddProduct = async (formData) => {
                 </div>
             </section>
         </div>
+        </div>
     );
 };
 
 export default Admin;
+
+
+
+

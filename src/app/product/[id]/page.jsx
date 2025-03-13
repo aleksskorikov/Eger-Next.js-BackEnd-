@@ -17,28 +17,21 @@ const Product = () => {
     const { id } = useParams(); 
     const [product, setProduct] = useState(null);
     const [loading, setLoading] = useState(true);
-
-    const settings = {
-        dots: true,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        nextArrow: <NextArrow />, 
-        prevArrow: <PrevArrow />,
-        responsive: [
-            { breakpoint: 1100, settings: { slidesToShow: 2 } },
-            { breakpoint: 800, settings: { slidesToShow: 1 } },
-            { breakpoint: 541, settings: { slidesToShow: 1, arrows: false } },
-        ],
-    };
+    const [images, setImages] = useState([]);
 
     useEffect(() => {
         if (!id) return;
 
         axios.get(`/api/products?id=${id}`)
             .then(response => {
-                setProduct(response.data);
+                const productData = response.data;
+                setProduct(productData);
                 setLoading(false);
-                console.log("📌 Найден товар:", response.data);
+
+                const productImages = Object.keys(productData)
+                    .filter(key => key.startsWith("img") && productData[key])
+                    .map(key => productData[key]);
+                setImages(productImages);
             })
             .catch(error => {
                 console.error("Ошибка при загрузке товара:", error);
@@ -49,22 +42,36 @@ const Product = () => {
     if (loading) return <div>Завантаження...</div>;
     if (!product) return <div>Товар не знайдено</div>;
 
-    const images = Object.keys(product)
-        .filter(key => key.startsWith("img"))
-        .map(key => product[key]);
+    const settings = {
+        dots: true,
+        slidesToShow: 1, 
+        slidesToScroll: 1,
+        infinite: images.length > 1,
+        nextArrow: images.length > 1 ? <NextArrow key="next" /> : null,
+        prevArrow: images.length > 1 ? <PrevArrow key="prev" /> : null,
+        responsive: [
+            { breakpoint: 1100, settings: { slidesToShow: Math.min(images.length, 2) } },
+            { breakpoint: 800, settings: { slidesToShow: 1 } },
+            { breakpoint: 541, settings: { slidesToShow: 1, arrows: false } },
+        ],
+    };
 
     return (
         <div className={styles.productWrapper}>
             <Header />
             <div className={styles.container}>
                 <BackToMenuBtn />
-                <Slider {...settings} className={styles.productSlider}>
-                    {images.map((image, index) => (
-                        <div key={index} className={styles.productSliderItem}>
-                            <img src={image} alt={`Slide ${index}`} className={styles.productSliderImage} />
-                        </div>
-                    ))}
-                </Slider>
+                {images.length > 0 ? (
+                    <Slider key={images.length} {...settings} className={styles.productSlider}>
+                        {images.map((image, index) => (
+                            <div key={index} className={styles.productSliderItem}>
+                                <img src={image} alt={`Slide ${index}`} className={styles.productSliderImage} />
+                            </div>
+                        ))}
+                    </Slider>
+                ) : (
+                    <p className={styles.noImage}>Зображення відсутні</p>
+                )}
                 <h2 className={styles.productsName}>{product.name}</h2>
                 <div className={styles.productsDescription}>
                     {product.description}
@@ -100,10 +107,3 @@ const NextArrow = ({ className, style, onClick }) => (
 );
 
 export default Product;
-
-
-
-
-
-
-

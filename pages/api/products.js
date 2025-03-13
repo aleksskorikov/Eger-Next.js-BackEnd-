@@ -16,14 +16,34 @@ const storage = multer.diskStorage({
     }
 });
 
-const upload = multer({ storage });
-const uploadMiddleware = promisify(upload.any()); 
+const upload = multer({
+    storage: storage,
+    fileFilter: (req, file, cb) => {
+        const allowedFields = ['imgSrc', 'img2', 'img3', 'img4', 'img5', 'img6', 'img7', 'img8', 'img9', 'img10'];
+        if (allowedFields.includes(file.fieldname)) {
+            cb(null, true);
+        } else {
+            cb(new Error('Unexpected field'), false);
+        }
+    }
+});
+const uploadMiddleware = promisify(upload.any());
 
 export const config = {
     api: {
         bodyParser: false, 
     },
 };
+
+function deleteFile(filePath) {
+    fs.unlink(filePath, (err) => {
+        if (err) {
+            console.error("❌ Ошибка при удалении файла:", err);
+        } else {
+            console.log("✅ Файл успешно удален:", filePath);
+        }
+    });
+}
 
 export default async function handler(req, res) {
     console.log(`📡 Получен запрос: ${req.method}`);
@@ -64,8 +84,8 @@ export default async function handler(req, res) {
             console.error("🚨 Ошибка сервера:", error);
             return res.status(500).json({ message: 'Ошибка сервера', error: error.message });
         }
-    } 
-    
+    }
+
     else if (req.method === 'GET') {
         try {
             const { id } = req.query;
@@ -79,51 +99,98 @@ export default async function handler(req, res) {
         } catch (error) {
             return res.status(500).json({ message: 'Ошибка при получении товаров', error: error.message });
         }
-    } 
-        
+    }
+
     else if (req.method === 'PUT') {
-    try {
-        console.log('📡 PUT запрос получен');
-        await uploadMiddleware(req, res);  
+        try {
+            console.log('📡 PUT запрос получен');
 
-        const { id, name, price, description, category, page_name, product_category, ...listData } = req.body;
-        console.log('📩 Данные:', { id, name, price, description });
+            // Обработка загрузки файлов
+            await new Promise((resolve, reject) => {
+                upload.fields([
+                    { name: 'imgSrc', maxCount: 1 },
+                    { name: 'img2', maxCount: 1 },
+                    { name: 'img3', maxCount: 1 },
+                    { name: 'img4', maxCount: 1 },
+                    { name: 'img5', maxCount: 1 },
+                    { name: 'img6', maxCount: 1 },
+                    { name: 'img7', maxCount: 1 },
+                    { name: 'img8', maxCount: 1 },
+                    { name: 'img9', maxCount: 1 },
+                    { name: 'img10', maxCount: 1 },
+                ])(req, res, (err) => {
+                    if (err) reject(err);
+                    else resolve();
+                });
+            });
 
-        if (!id) {
-            return res.status(400).json({ message: 'ID товара не передано' });
-        }
+            console.log('📩 Данные запроса:', req.body);
+            console.log('📷 Загруженные файлы:', req.files);
 
-        const product = await Product.findByPk(id);
-        if (!product) {
-            return res.status(404).json({ message: 'Товар не найден' });
-        }
+            const { id, name, price, description, category, page_name, product_category, ...listData } = req.body;
 
-        const images = {};
-        req.files.forEach((file, index) => {
-            images[`img${index + 1}`] = `/uploads/${file.filename}`; 
-        });
+            if (!id) {
+                console.error("❌ Ошибка: ID товара не передано");
+                return res.status(400).json({ message: 'ID товара не передано' });
+            }
 
-        const updatedProduct = await Product.update(
-            {
+            const product = await Product.findByPk(id);
+            if (!product) {
+                console.error(`❌ Ошибка: Товар с ID ${id} не найден`);
+                return res.status(404).json({ message: 'Товар не найден' });
+            }
+
+            const currentProductData = product.toJSON();
+
+            const newProductData = {
                 name,
                 price,
                 description,
-                category: category || product.category,
-                page_name: page_name || product.page_name,
-                product_category: product_category || product.product_category,
-                ...images,  
-            },
-            { where: { id } }
-        );
+                category,
+                page_name,
+                product_category,
+                ...listData,
+            };
 
-        return res.status(200).json(updatedProduct); 
-    } catch (error) {
-        console.error("🚨 Ошибка при обновлении товара:", error);  
-        return res.status(500).json({ message: 'Ошибка при обновлении товара', error: error.message });
+            const images = {};
+            for (let i = 0; i <= 9; i++) {
+                const key = i === 0 ? 'imgSrc' : `img${i + 1}`;
+                if (req.files[key]) {
+                    if (currentProductData[key]) {
+                        const oldImagePath = path.join(process.cwd(), 'public', currentProductData[key]);
+                        if (fs.existsSync(oldImagePath)) {
+                            deleteFile(oldImagePath);
+                        }
+                    }
+
+                    images[key] = `/uploads/${req.files[key][0].filename}`;
+                }
+            }
+
+            Object.assign(newProductData, images);
+            
+            const changes = {};
+            for (const key in newProductData) {
+                if (newProductData[key] !== currentProductData[key]) {
+                    changes[key] = newProductData[key];
+                }
+            }
+
+            if (Object.keys(changes).length > 0) {
+                await product.update(changes);
+                console.log('🔄 Обновлены поля:', changes);
+            } else {
+                console.log('✅ Изменений нет, обновление не требуется');
+            }
+
+            return res.status(200).json({ message: 'Товар успешно обновлен', product });
+
+        } catch (error) {
+            console.error("🚨 Ошибка при обновлении товара:", error);
+            return res.status(500).json({ message: 'Ошибка при обновлении товара', error: error.message });
+        }
     }
-}
 
-    
     else if (req.method === 'DELETE') {
         try {
             const { id } = req.query;

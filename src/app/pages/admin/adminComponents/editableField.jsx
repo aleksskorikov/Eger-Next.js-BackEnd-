@@ -20,7 +20,7 @@ const EditableField = ({ value, onSave, onCancel }) => {
                 type="text"
                 value={newValue}
                 onChange={(e) => setNewValue(e.target.value)}
-                onBlur={handleBlur} // ✅ Сохраняем только после ухода из поля
+                onBlur={handleBlur} 
                 className={styles.editableInput}
             />
         </div>
