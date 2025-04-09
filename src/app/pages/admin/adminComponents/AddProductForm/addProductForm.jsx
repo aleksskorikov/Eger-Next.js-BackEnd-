@@ -1,0 +1,116 @@
+"use client";
+
+import React, { useState, useCallback, useMemo } from "react";
+import EditableField from "../EditableField/editableField";
+import EditableImageField from "../EditableImageField/editableImageField";
+import styles from "./_addProductForm.module.scss";
+
+const AddProductForm = ({ onSave, onCancel }) => {
+    const [newProduct, setNewProduct] = useState({
+        name: "",
+        description: "",
+        price: "",
+        list: Array(20).fill(""),
+        images: {},
+    });
+
+    const handleFieldChange = useCallback((field, value) => {
+        setNewProduct(prevState => {
+            if (prevState[field] === value) return prevState; // ✅ Избегаем лишнего рендера
+            return { ...prevState, [field]: value };
+        });
+    }, []);
+
+    const handleListChange = useCallback((index, value) => {
+        setNewProduct(prevState => {
+            if (prevState.list[index] === value) return prevState; // ✅ Проверяем изменение
+
+            const updatedList = [...prevState.list];
+            updatedList[index] = value;
+            return { ...prevState, list: updatedList };
+        });
+    }, []);
+
+    const handleImageChange = useCallback((field, file) => {
+        setNewProduct(prevState => {
+            if (file) {
+                return { ...prevState, images: { ...prevState.images, [field]: file } };
+            } else {
+                const updatedImages = { ...prevState.images };
+                delete updatedImages[field];
+                return { ...prevState, images: updatedImages };
+            }
+        });
+    }, []);
+
+    const listMemo = useMemo(() => newProduct.list, [newProduct.list]);
+
+    const handleSaveClick = async () => {
+        const formData = new FormData();
+
+        Object.keys(newProduct).forEach((key) => {
+            if (key === "images") {
+                Object.entries(newProduct.images).forEach(([field, file]) => {
+                    if (file instanceof File) {
+                        formData.append(field, file);
+                    }
+                });
+            } else if (key === "list") {
+                newProduct.list.forEach((item, index) => {
+                    if (item) formData.append(`list${index + 1}`, item);
+                });
+            } else if (newProduct[key]) {
+                formData.append(key, newProduct[key]);
+            }
+        });
+
+        if (typeof onSave === "function") {
+            onSave(formData);
+        } else {
+            console.error("onSave не является функцией", onSave);
+        }
+    };
+
+    return (
+        <div className={styles.form}>
+            <p className={styles.formSubtitle}>Основне фото</p>
+            <EditableImageField
+                currentImage={newProduct.images.imgSrc}
+                onSave={(file) => handleImageChange("imgSrc", file)}
+            />
+
+            {Array.from({ length: 9 }).map((_, index) => (
+                <div key={index}>
+                    <p className={styles.formSubtitle}>Додаткове фото {index + 1}</p>
+                    <EditableImageField
+                        currentImage={newProduct.images[`img${index + 2}`]}
+                        onSave={(file) => handleImageChange(`img${index + 2}`, file)}
+                    />
+                </div>
+            ))}
+
+            <p className={styles.formSubtitle}>Назва товару</p>
+            <EditableField value={newProduct.name} onSave={(value) => handleFieldChange("name", value)} />
+
+            <p className={styles.formSubtitle}>Опис товару (не обов'язково)</p>
+            <EditableField value={newProduct.description} onSave={(value) => handleFieldChange("description", value)} />
+
+            {Array.from({ length: 20 }).map((_, index) => (
+                <div key={index}>
+                    <p className={styles.formSubtitle}>Опис товару у вигляді списку пункт {index + 1} (не обов'язково)</p>
+                    <EditableField value={listMemo[index]} onSave={(value) => handleListChange(index, value)} />
+                </div>
+            ))}
+
+            <p className={styles.formSubtitle}>Ціна товару</p>
+            <EditableField value={newProduct.price} onSave={(value) => handleFieldChange("price", value)} />
+
+            <div className={styles.btnsBlock}>
+                <button onClick={handleSaveClick} className={styles.btnOk}>Зберегти</button>
+                <button onClick={onCancel} className={styles.cancellation}>Скасувати</button>
+            </div>
+        </div>
+    );
+};
+
+export default AddProductForm;

@@ -1,16 +1,12 @@
-// pages/Acces.js
 'use client';
 
 import React, { useState } from 'react';
-import Image from 'next/image';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
-import ProductSlider from '@/components/ProductSlider';
-import ToMainBtn from '@/components/btns/ToMainBtn';
-import OllAll from '@/components/OllAll';
-import ProductCard from '@/components/ProductCard';
-import Menu from '@/components/Menu'; 
-import styles from '@/styles/scss/_productPages.module.scss';
+import ProductSlider from '@/components/ProductSlider/ProductSlider';
+import ToMainBtn from '@/components/btns/ToMainBtn/ToMainBtn';
+import OllAll from '@/components/OllAll/OllAll';
+import ProductCard from '@/components/ProductCard/ProductCard';
+import Menu from '@/components/Menu/Menu'; 
+import styles from '../_productPages.module.scss';
 
 import MenuImg from '../../../../public/images/menu img/acces.jpg';
 import MenuImg1 from '../../../../public/images/menu img/acces1.jpg';
@@ -31,7 +27,6 @@ const Acces = () => {
     const images = [Slide1, Slide2, Slide3, Slide4, Slide5, Slide6, Slide7, Slide8];
     
         const handleFetchedProducts = (data) => {
-            // Логика обработки данных продуктов
         };
 
     const menuItemsOne = [
@@ -42,23 +37,19 @@ const Acces = () => {
     ];
 
     return (
-        <div className={styles.main}>
-            <Header />
-            <div className={styles.container}>
-                <ProductSlider images={images}/>
-                <ToMainBtn />
-                <div className={styles.menu}>
-                    <h1 className={styles.menuTitle}>Аксесуари</h1>
-                    <Menu
-                        menuItems={menuItemsOne}
-                        activeMenu={activeMenuOne}
-                        onMenuItemClick={setActiveMenuOne}
-                    />
-                    <ProductCard pageName={pageName} activeCategory={activeMenuOne} productCategory="productsOne" onProductsFetched={handleFetchedProducts}/>
-                </div>
-                <OllAll />
+        <div className={styles.container}>
+            <ProductSlider images={images}/>
+            <ToMainBtn />
+            <div className={styles.menu}>
+                <h1 className={styles.menuTitle}>Аксесуари</h1>
+                <Menu
+                    menuItems={menuItemsOne}
+                    activeMenu={activeMenuOne}
+                    onMenuItemClick={setActiveMenuOne}
+                />
+                <ProductCard pageName={pageName} activeCategory={activeMenuOne} productCategory="productsOne" onProductsFetched={handleFetchedProducts}/>
             </div>
-            <Footer />
+            <OllAll />
         </div>
     );
 };

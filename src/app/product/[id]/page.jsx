@@ -6,12 +6,10 @@ import axios from "axios";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import styles from "../../../styles/scss/product.module.scss";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import MarqueeСontent from "@/components/mainContent/marqueeСontent";
-import BackToMenuBtn from "@/components/btns/backTuMenuBtn";
-import BuyBtn from "@/components/btns/buyBtn";
+import styles from "./_product.module.scss";
+import MarqueeСontent from "@/components/mainContent/MarqueeСontent/marqueeСontent";
+import BackToMenuBtn from "@/components/btns/BackTuMenuBtn/backTuMenuBtn";
+import BuyBtn from "@/components/btns/BuyBtn/buyBtn";
 
 const Product = () => {
     const { id } = useParams(); 
@@ -57,8 +55,7 @@ const Product = () => {
     };
 
     return (
-        <div className={styles.productWrapper}>
-            <Header />
+        <>
             <div className={styles.container}>
                 <BackToMenuBtn />
                 {images.length > 0 ? (
@@ -89,8 +86,7 @@ const Product = () => {
             <MarqueeСontent wrapperClassName={styles.customWrapper} contentClassName={styles.customContent}>
                 УВАГА!!!!! Наявність товару та ціну будь ласка уточнюйте у продавця!
             </MarqueeСontent>
-            <Footer />
-        </div>
+        </>
     );
 };
 

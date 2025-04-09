@@ -1,0 +1,161 @@
+@use '../../../styles/scss/changeable.module.scss' as *;
+@use '../../../styles/scss/mixins.module.scss' as *;
+@use "../../../styles/scss/templates.module.scss" as *;
+
+
+.container {
+    max-width: 1310px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+    // .product__slider
+
+    .productSlider {
+        margin: 3rem auto;
+        width: 50%;
+    }
+        .slick-dots li button::before {
+            font-size: 0;
+        }
+
+        .slick-dots {
+            @extend %flex-center;
+            position: relative;
+
+
+            button {
+                font-size: 0;
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+                background: $white;
+            }
+
+            li {
+                margin: 0 10px;
+            }
+
+            .slick-active button {
+                background: transparent;
+                border: 2px solid $black;
+            }
+        }
+
+        .slickArrow {
+            font-size: 0;
+            position: absolute;
+            width: 2.5rem;
+            height: 4.4rem;
+            top: 40%;
+            z-index: 10;
+        }
+
+        .slickPrev,
+        .slickNext::before {
+            content: url(../../../../public/images/arrow.svg);
+        }
+
+        .slickPrev {
+            left: -10%;
+            transform: rotateY(180deg);
+        }
+
+        .slickNext {
+            right: -10%;
+            top: 45%;
+        }
+
+    .sliderSlide {
+        width: 100%;
+    }
+
+    .productSliderItem {
+        @extend %flex-center;
+        border: 5px solid $colobg;
+        border-radius: 1rem;
+        background: $menu-color-bg;
+        padding: 1rem 1rem;
+    }
+
+    .productSliderImage {
+        width: 100%;
+        height: auto;
+        object-fit: scale-down;
+    }
+
+
+
+.productsName {
+    text-align: center;
+    margin: 2rem 0;
+    @include adaptiv-font(48, 32);
+}
+
+.productsPrice {
+    text-align: center;
+    font-size: 4rem;
+    margin-top: 2rem;
+    color: $red;
+    @include adaptiv-font(64, 36);
+}
+
+
+.productsDescription {
+    max-width: 60%;
+    margin: 1rem auto;
+    text-align: center;
+    font-size: 2.5rem;
+}
+
+.productLists {
+    width: 80%;
+    text-align: start;
+    margin-top: 2rem;
+    font-size: 2rem;
+}
+
+.productList {
+    margin: 1rem 0;
+}
+
+.productList::marker {
+    content: '\1F525';
+}
+
+.customContent {
+    display: inline-block;
+    white-space: nowrap;
+    animation: marquee 30s linear infinite;
+    color: $red;
+    margin-bottom: 2rem;
+}
+
+@keyframes marquee {
+    0% {
+        transform: translateX(100%);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+@media (max-width: 913px) {
+    .product {
+
+        // .product__slider
+
+        &__slider {
+            width: 80%;
+
+            .slick-arrow {
+                display: none;
+            }
+        }
+
+        &__slider-item {
+            padding: 1rem 1rem;
+        }
+    }
+}

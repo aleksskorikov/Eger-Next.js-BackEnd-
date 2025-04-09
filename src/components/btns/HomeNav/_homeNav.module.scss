@@ -1,0 +1,19 @@
+@use '../../../styles/scss/changeable.module.scss' as *;
+@use '../../../styles/scss/mixins.module.scss' as *;
+@use "../../../styles/scss/templates.module.scss" as *;
+
+
+.nav {
+    margin-top: 3rem;
+}
+
+.navMenu {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 25px;
+}
+
+.navButton {
+    @extend %navbuttom;
+}

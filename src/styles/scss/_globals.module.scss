@@ -1,0 +1,23 @@
+@use '../scss/changeable.module.scss' as *;
+@use '../scss/mixins.module.scss' as *;
+@use "../scss/templates.module.scss" as *;
+
+.main {
+    background-color: $colorbg-body;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+
+    &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: url(../../../public/logo/fon.png);
+        background-position: center 30%;
+        // background-repeat: no-repeat repeat;
+        background-size: 22%;
+        opacity: 0.05;
+        z-index: -1;
+    }
+}
+

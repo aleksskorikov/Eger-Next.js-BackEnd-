@@ -1,14 +1,14 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Hanter from "./adminComponents/hanter";
-import Fishing from "./adminComponents/fishing";
-import Weapon from "./adminComponents/weapon";
-import Tourizm from "./adminComponents/tourizm";
-import styles from "../../../styles/scss/admin.module.scss";
+import Hanter from "./adminComponents/MenuComponents/hanter";
+import Fishing from "./adminComponents/MenuComponents/fishing";
+import Weapon from "./adminComponents/MenuComponents/weapon";
+import Tourizm from "./adminComponents/MenuComponents/tourizm";
+import styles from "./_admin.module.scss";
 import useFetchProducts from "@/app/Hooks/useFetchProducts";
-import FilteredProducts from "./adminComponents/filteredProducts";
-import AddProductBtn from "./adminComponents/addProductBtn";
+import FilteredProducts from "./adminComponents/filteredProducts/filteredProducts";
+import AddProductBtn from "./adminComponents/AddProductBtn/addProductBtn";
 
 const Admin = () => {
     const { products, error} = useFetchProducts();

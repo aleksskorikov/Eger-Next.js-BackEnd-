@@ -1,0 +1,46 @@
+@use '../../styles/scss/changeable.module.scss' as *;
+@use '../../styles/scss/mixins.module.scss' as *;
+@use "../../styles/scss/templates.module.scss" as *;
+
+.slider {
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.slick-initialized .slick-slide {
+    display: flex;
+}
+
+.slick-slide {
+    justify-content: center;
+}
+
+.slideItem {
+    width: 100%;
+    @extend %flex-center;
+    overflow: hidden;
+}
+
+.slideItem img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+@media (max-width: 1025px) {
+    .slick-slide {
+        justify-content: start;
+    }
+}
+
+@media (max-width: 854px) {
+    .slick-slide {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 840px) {
+    .slider {
+        padding: 0 20px;
+    }
+}

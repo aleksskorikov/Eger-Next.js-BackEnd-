@@ -1,0 +1,55 @@
+@use '../../styles/scss/changeable.module.scss' as *;
+@use '../../styles/scss/mixins.module.scss' as *;
+@use "../../styles/scss/templates.module.scss" as *;
+
+.main {
+    background-color: $colorbg-body;
+}
+
+.container {
+    max-width: 1310px;
+    margin: 0 auto;
+    padding: 0 15px 5rem 15px;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+}
+
+.menuTitle {
+    text-align: center;
+    text-shadow: 3px 3px 30px $title-text-shadow;
+    margin-top: 2rem;
+    @include adaptiv-font(96, 64);
+}
+
+.menuSubtitle {
+    text-align: center;
+    text-shadow: 3px 3px 30px $title-text-shadow;
+    margin-top: 2rem;
+    @include adaptiv-font(48, 32);
+}
+
+
+@media (max-width: 769px) {
+    .menu {
+        width: auto;
+        margin: 2rem 1%;
+    }
+}
+
+@media (max-width: 550px) {
+    .card,
+    .card-two {
+        width: 10rem;
+    }
+
+    .product-name {
+        font-size: 1rem;
+    }
+
+    .product-price {
+        font-size: 1.5rem;
+    }
+}

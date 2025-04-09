@@ -1,0 +1,26 @@
+@use '../../../styles/scss/changeable.module.scss' as *;
+@use '../../../styles/scss/mixins.module.scss' as *;
+@use "../../../styles/scss/templates.module.scss" as *;
+
+.btnPoz {
+    @extend %flex-center;
+    margin-top: 3rem;
+
+}
+
+.buyBtn {
+    position: relative;
+    z-index: 10;
+    width: 10rem;
+    height: 3rem;
+    background: $buy-btn-bg;
+    border-radius: 10px;
+    color: $whitesmoke;
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    font-weight: bold;
+
+    &:hover {
+        background: $buy-btn-bg-hover;
+    }
+}

@@ -1,15 +1,12 @@
 'use client';
 
 import React, { useState } from 'react';
-import Image from 'next/image';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
-import ProductSlider from '@/components/ProductSlider';
-import ToMainBtn from '@/components/btns/ToMainBtn';
-import OllAll from '@/components/OllAll';
-import ProductCard from '@/components/ProductCard';
-import Menu from '@/components/Menu'; 
-import styles from '@/styles/scss/_productPages.module.scss';
+import ProductSlider from '@/components/ProductSlider/ProductSlider';
+import ToMainBtn from '@/components/btns/ToMainBtn/ToMainBtn';
+import OllAll from '@/components/OllAll/OllAll';
+import ProductCard from '@/components/ProductCard/ProductCard';
+import Menu from '@/components/Menu/Menu'; 
+import styles from '../_productPages.module.scss';
 
 import MenuImg from '../../../../public/images/menu img/closAll.jpg';
 import MenuImg1 from '../../../../public/images/menu img/clos.jpg';
@@ -57,32 +54,28 @@ const Cloth = () => {
     ];
 
     return (
-        <div className={styles.main}>
-            <Header />
-            <div className={styles.container}>
-                <ProductSlider images={images}/>
-                <ToMainBtn />
-                <div className={styles.menu}>
-                    <h1 className={styles.menuTitle}>ОДЯГ</h1>
-                    <h2 className={styles.menuSubtitle}>Верхній одяг</h2>
-                    <Menu
-                        menuItems={menuItemsOne}
-                        activeMenu={activeMenuOne}
-                        onMenuItemClick={setActiveMenuOne}
-                    />
-                    <ProductCard pageName={pageName} activeCategory={activeMenuOne} productCategory="productsOne" onProductsFetched={handleFetchedProducts}/>
+        <div className={styles.container}>
+            <ProductSlider images={images}/>
+            <ToMainBtn />
+            <div className={styles.menu}>
+                <h1 className={styles.menuTitle}>ОДЯГ</h1>
+                <h2 className={styles.menuSubtitle}>Верхній одяг</h2>
+                <Menu
+                    menuItems={menuItemsOne}
+                    activeMenu={activeMenuOne}
+                    onMenuItemClick={setActiveMenuOne}
+                />
+                <ProductCard pageName={pageName} activeCategory={activeMenuOne} productCategory="productsOne" onProductsFetched={handleFetchedProducts}/>
 
-                    <h2 className={styles.menuSubtitle}>Взуття</h2>
-                    <Menu
-                        menuItems={menuItemsTwo}
-                        activeMenu={activeMenuTwo}
-                        onMenuItemClick={setActiveMenuTwo}
-                    />
-                    <ProductCard pageName={pageName} activeCategory={activeMenuTwo} productCategory="productsTwo" onProductsFetched={handleFetchedProducts}/>
-                </div>
-                <OllAll />
+                <h2 className={styles.menuSubtitle}>Взуття</h2>
+                <Menu
+                    menuItems={menuItemsTwo}
+                    activeMenu={activeMenuTwo}
+                    onMenuItemClick={setActiveMenuTwo}
+                />
+                <ProductCard pageName={pageName} activeCategory={activeMenuTwo} productCategory="productsTwo" onProductsFetched={handleFetchedProducts}/>
             </div>
-            <Footer />
+            <OllAll />
         </div>
     );
 };
