@@ -19,6 +19,8 @@ const NextArrow = ({ className, style, onClick }) => (
     </div>
 );
 
+
+
 const SliderWrapper = ({ categories }) => {
     const settings = {
         dots: true,
@@ -28,7 +30,6 @@ const SliderWrapper = ({ categories }) => {
         slidesToScroll: 1,
         nextArrow: <NextArrow />,
         prevArrow: <PrevArrow />,
-        dotsClass: styles.dots,
 
         responsive: [
             { breakpoint: 1100, settings: { slidesToShow: 2 } },
@@ -47,6 +48,18 @@ const SliderWrapper = ({ categories }) => {
 };
 
 export default SliderWrapper;
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

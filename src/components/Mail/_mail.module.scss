@@ -84,18 +84,14 @@
             box-shadow: $form-btn-bg-activ-box-shadow;
         }
     }
-}
 
-.formClose {
-    background: inherit;
-    margin-right: -2.5rem;
-    border-radius: 10px;
-
-    img {
-        width: 2rem;
-        float: right;
+    .formClose {
+        margin-left: 100%;
+        margin-top: 2%;
     }
 }
+
+
 
 .message {
     resize: none;

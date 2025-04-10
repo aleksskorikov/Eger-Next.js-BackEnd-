@@ -2,6 +2,19 @@
 @use '../../styles/scss/mixins.module.scss'as *;
 @use "../../styles/scss/templates.module.scss"as *;
 
+@font-face {
+    font-family: 'Volja';
+    src: url('../../../public/fonts/volia/Volja-Regular.eot');
+    src: local('Volja-Regular'),
+        url('../../../public/fonts/volia/Volja-Regular.eot?#iefix') format('embedded-opentype'),
+        url('../../../public/fonts/volia/Volja-Regular.woff2') format('woff2'),
+        url('../../../public/fonts/volia/Volja-Regular.woff') format('woff'),
+        url('../../../public/fonts/volia/Volja-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
 .container {
     max-width: 1310px;
     margin: 0 auto;
@@ -37,7 +50,17 @@
 .blockSetyIcon {
     width: 40px;
     height: 40px;
-    border-radius: 5px;
+    border-radius: 10px;
+    box-shadow: 0 3px 0 $grey;
+    top: 0;
+    transition-duration: 0.5s;
+    &:hover {
+        transform: scale(1.1);
+    }
+    &:active {
+        top: 2px;
+        box-shadow: 0 1px 0 $grey;
+    }
 }
 
 .footerBody{
@@ -46,6 +69,7 @@
 }
 
 .footerBodyTitle {
+    font-family: 'Volja';
     @include adaptiv-font(64, 32);
 }
 

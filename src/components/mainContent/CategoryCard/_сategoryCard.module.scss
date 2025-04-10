@@ -60,8 +60,10 @@
             font-weight: bold;
             color: $back-title-color;
             text-transform: uppercase;
-            margin: 1rem;
-
+            width: 100%;
+            display: block;
+            margin: 0 auto;
+            padding: 5px;
             &:hover {
                 color: $back-title-color-hover;
             }

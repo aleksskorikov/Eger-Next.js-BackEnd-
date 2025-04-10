@@ -44,11 +44,12 @@ const Product = () => {
         dots: true,
         slidesToShow: 1, 
         slidesToScroll: 1,
+        adaptiveHeight: true,
         infinite: images.length > 1,
         nextArrow: images.length > 1 ? <NextArrow key="next" /> : null,
         prevArrow: images.length > 1 ? <PrevArrow key="prev" /> : null,
         responsive: [
-            { breakpoint: 1100, settings: { slidesToShow: Math.min(images.length, 2) } },
+            { breakpoint: 1270, settings: { slidesToShow: 1 } },
             { breakpoint: 800, settings: { slidesToShow: 1 } },
             { breakpoint: 541, settings: { slidesToShow: 1, arrows: false } },
         ],
@@ -58,31 +59,35 @@ const Product = () => {
         <>
             <div className={styles.container}>
                 <BackToMenuBtn />
-                {images.length > 0 ? (
-                    <Slider key={images.length} {...settings} className={styles.productSlider}>
-                        {images.map((image, index) => (
-                            <div key={index} className={styles.productSliderItem}>
-                                <img src={image} alt={`Slide ${index}`} className={styles.productSliderImage} />
-                            </div>
-                        ))}
-                    </Slider>
-                ) : (
-                    <p className={styles.noImage}>Зображення відсутні</p>
-                )}
                 <h2 className={styles.productsName}>{product.name}</h2>
-                <div className={styles.productsDescription}>
-                    {product.description}
-                    <ol className={styles.productLists}>
-                        {Object.keys(product)
-                            .filter(key => key.startsWith("list") && product[key])
-                            .map((key, index) => (
-                                <li key={index} className={styles.productList}>{product[key]}</li>
+                <p className={styles.description}>{product.description}</p> 
+                <div className={styles.productCard}>
+                    {images.length > 0 ? (
+                    <Slider key={images.length} {...settings} className={styles.productSlider}>
+                            {images.map((image, index) => (
+                                <div key={index} className={styles.productSliderItem}>
+                                    <img src={image} alt={`Slide ${index}`} className={styles.productSliderImage} />
+                                </div>
                             ))}
-                    </ol>
+                        </Slider>
+                    ) : (
+                        <p className={styles.noImage}>Зображення відсутні</p>
+                    )}
+                    <div className={styles.cardDesckription}>
+                            <div className={styles.productsDescription}>
+                                <ol className={styles.productLists}>
+                                    {Object.keys(product)
+                                        .filter(key => key.startsWith("list") && product[key])
+                                        .map((key, index) => (
+                                            <li key={index} className={styles.productList}>{product[key]}</li>
+                                        ))}
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <p className={styles.productsPrice}>Ціна: {product.price} грн</p>
+                    <BuyBtn />
                 </div>
-                <p className={styles.productsPrice}>Ціна: {product.price} грн</p>
-            </div>
-            <BuyBtn />
             <MarqueeСontent wrapperClassName={styles.customWrapper} contentClassName={styles.customContent}>
                 УВАГА!!!!! Наявність товару та ціну будь ласка уточнюйте у продавця!
             </MarqueeСontent>

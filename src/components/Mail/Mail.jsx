@@ -69,7 +69,7 @@ const Mail = ({ onClose }) => {
           width={24}
           height={24}
           className={styles.formClose}
-          onClick={onClose} // 👈 Закрываем форму по клику
+          onClick={onClose} 
           style={{ cursor: "pointer" }}
         />
 
