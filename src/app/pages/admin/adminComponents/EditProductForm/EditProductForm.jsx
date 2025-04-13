@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-// import EditableImageField from "../EditableImageField/editableImageField";
 import styles from "./_editProductForm.module.scss";
 
 const EditProductForm = ({ product, onSave }) => {
@@ -70,60 +69,96 @@ const EditProductForm = ({ product, onSave }) => {
         };
         if (file) reader.readAsDataURL(file);
     };
-
-    const handleDeleteImage = (index) => {
-        setFormData(prev => {
-            const newImages = [...prev.images];
-            newImages[index] = '';  
-            return { ...prev, images: newImages };
-        });
-
-        setImagePreviews(prev => {
-            const newPreviews = { ...prev };
-            delete newPreviews[`img${index}`]; 
-            return newPreviews;
-        });
-    };
     
-const handleSubmit = async (e) => {
-    e.preventDefault();
+    const handleDeleteImage = async (index) => {
+        const fieldName = index === 0 ? 'imgSrc' : `img${index + 1}`;
+        const imageToDelete = formData.images[index];
 
-    const formDataToSend = new FormData();
-
-    for (const key in formData) {
-        if (key !== 'images' && key !== 'lists') {
-            formDataToSend.append(key, formData[key]);
+        if (!imageToDelete || typeof imageToDelete === 'object') {
+            setFormData(prev => {
+                const newImages = [...prev.images];
+                newImages[index] = '';
+                return { ...prev, images: newImages };
+            });
+            setImagePreviews(prev => {
+                const previews = { ...prev };
+                delete previews[`img${index}`];
+                return previews;
+            });
+            return;
         }
-    }
 
-    formData.images.forEach((image, index) => {
-        if (image instanceof File) {
-            const fieldName = index === 0 ? 'imgSrc' : `img${index + 1}`;
-            formDataToSend.append(fieldName, image);
+        try {
+            const response = await fetch(`/api/products?id=${formData.id}&field=${fieldName}&imagePath=${encodeURIComponent(imageToDelete)}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    id: formData.id,
+                    field: fieldName,
+                    imagePath: imageToDelete,
+                }),
+            });
+
+            if (!response.ok) throw new Error('Ошибка при удалении');
+
+            setFormData(prev => {
+                const newImages = [...prev.images];
+                newImages[index] = '';
+                return { ...prev, images: newImages };
+            });
+
+            setImagePreviews(prev => {
+                const previews = { ...prev };
+                delete previews[`img${index}`];
+                return previews;
+            });
+        } catch (err) {
+            console.error("Ошибка удаления:", err);
+            alert("Не удалось удалить изображение");
         }
-    });
+    };
 
-    formData.lists.forEach((list, index) => {
-        formDataToSend.append(`list${index + 1}`, list);
-    });
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
-    try {
-        const response = await fetch(`/api/products?id=${formData.id}`, {
-            method: 'PUT',
-            body: formDataToSend,
+        const formDataToSend = new FormData();
+
+        for (const key in formData) {
+            if (key !== 'images' && key !== 'lists') {
+                formDataToSend.append(key, formData[key]);
+            }
+        }
+
+        formData.images.forEach((image, index) => {
+            if (image instanceof File) {
+                const fieldName = index === 0 ? 'imgSrc' : `img${index + 1}`;
+                formDataToSend.append(fieldName, image);
+            }
         });
 
-        if (!response.ok) throw new Error("Ошибка сохранения");
+        formData.lists.forEach((list, index) => {
+            formDataToSend.append(`list${index + 1}`, list);
+        });
 
-        const updatedProduct = await response.json();
-        onSave(updatedProduct);
+        try {
+            const response = await fetch(`/api/products?id=${formData.id}`, {
+                method: 'PUT',
+                body: formDataToSend,
+            });
 
-        alert("Изменения сохранены!");
-    } catch (error) {
-        console.error("Ошибка при сохранении:", error);
-        alert("Ошибка при сохранении данных");
-    }
-};
+            if (!response.ok) throw new Error("Ошибка сохранения");
+
+            const updatedProduct = await response.json();
+            onSave(updatedProduct);
+
+            alert("Изменения сохранены!");
+        } catch (error) {
+            console.error("Ошибка при сохранении:", error);
+            alert("Ошибка при сохранении данных");
+        }
+    };
 
     return (
         <form onSubmit={handleSubmit} className={styles.form}>
@@ -212,7 +247,7 @@ const handleSubmit = async (e) => {
                 </label>
             ))}
 
-            <button type="submit" className='product__form-btn'>Сохранить изменения</button>
+            <button type="submit" className={styles.btnOk}>Сохранить изменения</button>
         </form>
     );
 };

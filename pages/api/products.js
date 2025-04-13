@@ -105,7 +105,6 @@ export default async function handler(req, res) {
         try {
             console.log('📡 PUT запрос получен');
 
-            // Обработка загрузки файлов
             await new Promise((resolve, reject) => {
                 upload.fields([
                     { name: 'imgSrc', maxCount: 1 },
@@ -191,45 +190,45 @@ export default async function handler(req, res) {
         }
     }
 
-    else if (req.method === 'DELETE') {
+    if (req.method === 'DELETE') {
         try {
-            const { id } = req.query;
-            if (!id) {
-                return res.status(400).json({ message: 'ID товара обязателен' });
+            const { id, field, imagePath } = req.query;
+            console.log('Запрос на удаление: ID:', id, 'Поле:', field, 'Путь к изображению:', imagePath);
+
+            if (!id || !field || !imagePath) {
+                return res.status(400).json({ message: 'Некорректные данные, отсутствуют обязательные параметры' });
             }
 
-            const product = await Product.findOne({ where: { id } });
+            const product = await Product.findByPk(id);
+
             if (!product) {
+                console.error(`❌ Товар с ID ${id} не найден`);
                 return res.status(404).json({ message: 'Товар не найден' });
             }
 
-            const imagePaths = Object.values(product.toJSON()).filter(value => 
-                typeof value === 'string' && value.startsWith('/uploads/')
-            );
+            const fullImagePath = path.join(process.cwd(), 'public', imagePath);
+            console.log('Полный путь к изображению:', fullImagePath);
 
-            imagePaths.forEach(imgPath => {
-                const fullPath = path.join(process.cwd(), 'public', imgPath);
-                if (fs.existsSync(fullPath)) {
-                    fs.unlinkSync(fullPath);
-                }
-            });
+            if (fs.existsSync(fullImagePath)) {
+                fs.unlinkSync(fullImagePath); 
+                console.log(`✅ Изображение успешно удалено: ${fullImagePath}`);
+            } else {
+                console.error(`❌ Изображение не найдено по пути: ${fullImagePath}`);
+                return res.status(404).json({ message: 'Изображение не найдено' });
+            }
 
-            const deleted = await Product.destroy({ where: { id } });
+            product[field] = null;
+            await product.save();
 
-            return deleted
-                ? res.status(200).json({ message: 'Товар и изображения удалены' })
-                : res.status(404).json({ message: 'Товар не найден' });
+            return res.status(200).json({ message: 'Изображение успешно удалено' });
 
         } catch (error) {
-            return res.status(500).json({ message: 'Ошибка при удалении товара', error: error.message });
+            console.error('🚨 Ошибка при удалении изображения:', error);
+            return res.status(500).json({ message: 'Ошибка при удалении изображения', error: error.message });
         }
-    } 
-    
-    else {
-        console.log(`⛔ Метод ${req.method} не разрешен`);
-        res.setHeader('Allow', ['GET', 'POST', 'PUT', 'DELETE']);
-        res.status(405).json({ message: `Метод ${req.method} не разрешен` });
     }
+
+    return res.status(405).json({ message: 'Метод не разрешен' });
 }
 
 

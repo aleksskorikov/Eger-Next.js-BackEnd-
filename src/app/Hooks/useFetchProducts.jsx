@@ -3,12 +3,13 @@ import { useState, useEffect } from 'react';
 const useFetchProducts = () => {
     const [products, setProducts] = useState([]);
     const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await fetch('http://localhost:5001/api/products'); 
-                
+                const response = await fetch('/api/products'); 
+
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
@@ -17,21 +18,15 @@ const useFetchProducts = () => {
             } catch (error) {
                 console.error('Ошибка при получении товаров:', error);
                 setError(error);
+            } finally {
+                setLoading(false);
             }
         };
 
         fetchProducts();
     }, []);
 
-
-
-  return { products, error };
-}
-
-
-
-
-
-
+    return { products, error, loading };
+};
 
 export default useFetchProducts;
